@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="640" height="160" role="img" aria-label="Ascend Youth Brands logo">
+  <title>Ascend Youth Brands</title>
+  <defs>
+    <linearGradient id="markGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#00c9a7"/>
+      <stop offset="100%" stop-color="#006aff"/>
+    </linearGradient>
+  </defs>
+  <!-- Icon mark -->
+  <rect x="0" y="0" width="80" height="80" rx="18" fill="url(#markGradient)"/>
+  <!-- Rising growth arrow trend line -->
+  <polyline points="14,62 30,42 46,50 64,24" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Arrowhead -->
+  <polyline points="48,22 64,22 64,38" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Wordmark: Ascend -->
+  <text x="96" y="36" font-family="Outfit,Inter,'Helvetica Neue',Arial,sans-serif" font-size="26" font-weight="700" letter-spacing="-0.3" fill="#0a1628">Ascend</text>
+  <!-- Wordmark: Youth Brands -->
+  <text x="96" y="60" font-family="Outfit,Inter,'Helvetica Neue',Arial,sans-serif" font-size="17" font-weight="400" letter-spacing="0.4" fill="#6b7f99">Youth Brands</text>
+</svg>

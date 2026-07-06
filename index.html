@@ -44,7 +44,7 @@
        RESET & BASE
     ===================================================== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     body {
       font-family: 'Outfit', sans-serif;
@@ -482,31 +482,32 @@
       margin-bottom: 20px;
     }
     .card-pillars {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
     }
     .pillar {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 12px 16px;
+      gap: 10px;
+      padding: 10px 12px;
       background: rgba(0,201,167,0.07);
       border-radius: var(--radius-sm);
       border: 1px solid rgba(0,201,167,0.12);
     }
     .pillar-icon {
-      width: 36px; height: 36px;
-      border-radius: 8px;
+      width: 30px; height: 30px;
+      border-radius: 6px;
       background: rgba(0,201,167,0.15);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
-    .pillar-icon svg { width: 18px; height: 18px; stroke: var(--teal); }
+    .pillar-icon svg { width: 14px; height: 14px; stroke: var(--teal); }
     .pillar-name {
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--white);
+      line-height: 1.3;
     }
 
     /* =====================================================
@@ -987,6 +988,8 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      /* Bias crop toward the upper portion of each photo so faces stay visible */
+      object-position: center 20%;
       display: block;
     }
     .carousel-overlay {
@@ -1272,28 +1275,84 @@
     /* =====================================================
        RESPONSIVE
     ===================================================== */
+    /* =====================================================
+       RESPONSIVE — TABLET
+    ===================================================== */
     @media (max-width: 1024px) {
       #about .about-grid { grid-template-columns: 1fr; gap: 48px; }
       .about-card-stack { height: 360px; }
-      .services-grid { grid-template-columns: 1fr 1fr; }
-      .focus-grid { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+      .focus-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
+      /* Move approach to 2-col on tablet — 4-col is too cramped */
+      .approach-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
       .approach-steps::before { display: none; }
     }
+
+    /* =====================================================
+       RESPONSIVE — MOBILE
+    ===================================================== */
     @media (max-width: 768px) {
-      .section { padding: 70px 0; }
+      .section { padding: 60px 0; }
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; }
-      .services-grid { grid-template-columns: 1fr; }
-      .focus-grid { grid-template-columns: 1fr; }
+
+      /* Cards go single-column */
+      .services-grid { grid-template-columns: 1fr; gap: 16px; }
+      .focus-grid { grid-template-columns: 1fr; gap: 16px; }
       .criteria-grid { grid-template-columns: 1fr; }
       .contact-grid { grid-template-columns: 1fr; gap: 40px; }
       .form-row { grid-template-columns: 1fr; }
-      .approach-steps { grid-template-columns: 1fr 1fr; gap: 32px; }
-      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+
+      /* About card stack — clip the rotated back card so it won't overflow.
+         Height raised to 420px to fit the expanded 6-item 2-col pillar grid.
+         On very small screens pillar grid drops to 1-col (see 480px block). */
+      .about-card-stack { height: 420px; overflow: hidden; }
+      .card-back { right: 0; transform: rotate(2deg); }
+      /* Drop pillars to single column on mobile so text never wraps awkwardly */
+      .card-pillars { grid-template-columns: 1fr; }
+
+      /* Approach steps — 2-col still readable on mobile */
+      .approach-steps { grid-template-columns: 1fr 1fr; gap: 28px; }
+
+      /* Criteria aside becomes static (not sticky) below fold */
+      .criteria-aside { position: static; }
+
+      /* Tighten hero padding so headline isn't hidden under nav */
+      .hero-content { padding: 96px 0 56px; }
+
+      /* Tighten form card padding */
+      .contact-form { padding: 32px 24px; }
     }
+
+    /* =====================================================
+       RESPONSIVE — SMALL MOBILE
+    ===================================================== */
     @media (max-width: 480px) {
-      .approach-steps { grid-template-columns: 1fr; }
+      .section { padding: 48px 0; }
+      /* Narrower side padding so cards fill the screen */
+      .container { padding: 0 16px; }
+
+      /* Single-column approach on small phones */
+      .approach-steps { grid-template-columns: 1fr; gap: 24px; }
+
+      /* Give cards a bit more breathing room by reducing their own padding */
+      .service-card, .focus-card { padding: 26px 18px; }
+
+      /* Slightly smaller hero on tiny screens */
+      .hero-content { padding: 88px 0 48px; }
+
+      /* Prevent hero type pills from overflowing */
+      .hero-types { gap: 8px; }
+      .hero-type-pill { font-size: 12px; padding: 5px 10px; }
+
+      /* Criteria & contact cards */
+      .criteria-highlight { padding: 28px 20px; }
+      .contact-form { padding: 28px 18px; }
+
+      /* Step numbers — slightly smaller on tiny screens */
+      .step-number { width: 60px; height: 60px; font-size: 18px; }
     }
   </style>
 </head>
@@ -1315,7 +1374,10 @@
     <a href="#hero" class="nav-logo" aria-label="Ascend Youth Brands home">
       <div class="nav-logo-mark">
         <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M10 2L3 15h4v3h6v-3h4L10 2z" fill="#fff" opacity="0.9"/>
+          <!-- Rising trend-line arrow: bottom-left to top-right -->
+          <polyline points="2,15 7,9 11,12 17,5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <!-- Arrowhead -->
+          <polyline points="12.5,4.5 17,4.5 17,9" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
         </svg>
       </div>
       <div class="nav-wordmark">Ascend Youth Brands</div>
@@ -1481,21 +1543,39 @@
             <div class="card-pillars">
               <div class="pillar">
                 <div class="pillar-icon">
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                 </div>
                 <div class="pillar-name">Growth Capital</div>
               </div>
               <div class="pillar">
                 <div class="pillar-icon">
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                 </div>
-                <div class="pillar-name">Marketing &amp; Analytics</div>
+                <div class="pillar-name">Marketing &amp; Acquisition</div>
               </div>
               <div class="pillar">
                 <div class="pillar-icon">
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                 </div>
                 <div class="pillar-name">Operational Support</div>
+              </div>
+              <div class="pillar">
+                <div class="pillar-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </div>
+                <div class="pillar-name">Financial Management</div>
+              </div>
+              <div class="pillar">
+                <div class="pillar-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                </div>
+                <div class="pillar-name">Business Analytics</div>
+              </div>
+              <div class="pillar">
+                <div class="pillar-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                </div>
+                <div class="pillar-name">Strategic Planning</div>
               </div>
             </div>
           </div>
@@ -1569,19 +1649,19 @@
       <p class="section-sub reveal reveal-delay-2">We partner with businesses across the full spectrum of youth enrichment, united by a shared mission of making a real difference in young lives.</p>
     </div>
     <div class="focus-grid">
-      <div class="focus-card reveal" id="focus-sports">
-        <div class="focus-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4-4-4 4-4z"/></svg>
-        </div>
-        <div class="focus-card-title">Sports &amp; Athletics</div>
-        <div class="focus-card-body">Youth sports academies, gymnastics gyms, cheer programs, training facilities, multi-sport clubs, and martial arts programs. Any business helping young people build physical confidence, discipline, and teamwork.</div>
-      </div>
-      <div class="focus-card reveal reveal-delay-1" id="focus-arts">
+      <div class="focus-card reveal" id="focus-arts">
         <div class="focus-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
         </div>
         <div class="focus-card-title">Dance, Music &amp; Arts</div>
         <div class="focus-card-body">Dance studios, music schools, theater programs, and visual arts centers where creative development and structured learning come together to shape confident young people.</div>
+      </div>
+      <div class="focus-card reveal reveal-delay-1" id="focus-sports">
+        <div class="focus-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4-4-4 4-4z"/></svg>
+        </div>
+        <div class="focus-card-title">Sports &amp; Athletics</div>
+        <div class="focus-card-body">Youth sports academies, gymnastics gyms, cheer programs, training facilities, multi-sport clubs, and martial arts programs. Any business helping young people build physical confidence, discipline, and teamwork.</div>
       </div>
       <div class="focus-card reveal reveal-delay-2" id="focus-swim">
         <div class="focus-icon">
@@ -1625,11 +1705,11 @@
     </div>
     <div class="criteria-grid">
       <div class="criteria-list">
-        <div class="criterion reveal" id="criterion-revenue">
+        <div class="criterion reveal" id="criterion-founder">
           <div class="criterion-num">01</div>
           <div>
-            <div class="criterion-title">Proven Revenue &amp; Profitability</div>
-            <div class="criterion-body">We partner with businesses that are already working, with demonstrated profitability and a clear financial track record. We are not a startup investor; we want proven businesses with real revenue and happy customers.</div>
+            <div class="criterion-title">A Founder Who Cares</div>
+            <div class="criterion-body">We work best with owners who are passionate about their mission and open to partnership. Whether you want to stay on and grow with us, or fully transition to a new chapter, we respect and support both paths.</div>
           </div>
         </div>
         <div class="criterion reveal reveal-delay-1" id="criterion-community">
@@ -1639,25 +1719,25 @@
             <div class="criterion-body">Businesses with loyal families, strong word-of-mouth, and genuine roots in their community. The kind of program where parents tell their friends and kids don&rsquo;t want to leave.</div>
           </div>
         </div>
-        <div class="criterion reveal reveal-delay-2" id="criterion-recurring">
+        <div class="criterion reveal reveal-delay-2" id="criterion-revenue">
           <div class="criterion-num">03</div>
+          <div>
+            <div class="criterion-title">Proven Revenue &amp; Profitability</div>
+            <div class="criterion-body">We partner with businesses that are already working, with demonstrated profitability and a clear financial track record. We are not a startup investor; we want proven businesses with real revenue and happy customers.</div>
+          </div>
+        </div>
+        <div class="criterion reveal" id="criterion-recurring">
+          <div class="criterion-num">04</div>
           <div>
             <div class="criterion-title">Recurring or Enrollment-Based Revenue</div>
             <div class="criterion-body">We love businesses with predictable revenue driven by memberships, seasonal enrollments, or subscription programs. These models create stability and clear visibility into future performance.</div>
           </div>
         </div>
-        <div class="criterion reveal" id="criterion-expansion">
-          <div class="criterion-num">04</div>
+        <div class="criterion reveal reveal-delay-1" id="criterion-expansion">
+          <div class="criterion-num">05</div>
           <div>
             <div class="criterion-title">Growth Potential</div>
             <div class="criterion-body">Whether through additional locations, new program offerings, or expanded enrollment, we look for businesses with room to grow and a model that can scale without losing what makes them special.</div>
-          </div>
-        </div>
-        <div class="criterion reveal reveal-delay-1" id="criterion-founder">
-          <div class="criterion-num">05</div>
-          <div>
-            <div class="criterion-title">A Founder Who Cares</div>
-            <div class="criterion-body">We work best with owners who are passionate about their mission and open to partnership. Whether you want to stay on and grow with us, or transition to a new chapter, we respect and support both paths.</div>
           </div>
         </div>
       </div>
@@ -1708,8 +1788,8 @@
       </div>
       <div class="approach-step reveal reveal-delay-3" id="step-close">
         <div class="step-number">4</div>
-        <div class="step-title">Partnership &amp; Growth</div>
-        <div class="step-body">We close the transaction and immediately get to work bringing resources, marketing, capital, and operational support to your business.</div>
+        <div class="step-title">Transition</div>
+        <div class="step-body">We close the transaction and get to work&mdash;whether that means growing the business alongside you or managing a smooth, respectful handover so you can move on with confidence.</div>
       </div>
     </div>
   </div>
@@ -1722,7 +1802,7 @@
       <div class="contact-left">
         <div class="label reveal">Get in Touch</div>
         <h2 class="reveal reveal-delay-1">Let&rsquo;s talk about your business.</h2>
-        <p class="reveal reveal-delay-2">Whether you&rsquo;re a business owner curious about partnership, an advisor with a client fit, or just want to learn more about what we do, we&rsquo;d love to connect. There&rsquo;s no pressure and no obligation.</p>
+        <p class="reveal reveal-delay-2">Whether you&rsquo;re a business owner exploring a growth partnership or considering a full transition, an advisor with a client who might be a fit, or simply curious about what we do&mdash;we&rsquo;d love to connect. There&rsquo;s no pressure and no obligation.</p>
         <div class="contact-info-item reveal reveal-delay-2" id="contact-email">
           <div class="ci-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -1770,6 +1850,7 @@
               <option value="sell">I&rsquo;m interested in selling my business</option>
               <option value="partner">I&rsquo;d like to explore a growth partnership</option>
               <option value="advisor">I&rsquo;m an advisor / broker with a client</option>
+              <option value="coach">I&rsquo;m a coach / instructor looking to join the team</option>
               <option value="learn">I just want to learn more</option>
               <option value="other">Other</option>
             </select>
@@ -1801,7 +1882,10 @@
         <a href="#hero" class="nav-logo" style="display:inline-flex;" aria-label="Ascend Youth Brands">
           <div class="nav-logo-mark">
             <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M10 2L3 15h4v3h6v-3h4L10 2z" fill="#fff" opacity="0.9"/>
+              <!-- Rising trend-line arrow: bottom-left to top-right -->
+              <polyline points="2,15 7,9 11,12 17,5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <!-- Arrowhead -->
+              <polyline points="12.5,4.5 17,4.5 17,9" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
             </svg>
           </div>
           <div class="nav-wordmark">Ascend Youth Brands</div>
