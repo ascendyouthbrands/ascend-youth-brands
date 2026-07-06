@@ -1284,9 +1284,9 @@
       .services-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
       .focus-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
-      /* Move approach to 2-col on tablet — 4-col is too cramped */
-      .approach-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
-      .approach-steps::before { display: none; }
+      /* Fix: must match the ID-qualified base selector to override it */
+      #approach .approach-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+      #approach .approach-steps::before { display: none; }
     }
 
     /* =====================================================
@@ -1305,16 +1305,23 @@
       .form-row { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; gap: 28px; }
 
-      /* About card stack — clip the rotated back card so it won't overflow.
-         Height raised to 420px to fit the expanded 6-item 2-col pillar grid.
-         On very small screens pillar grid drops to 1-col (see 480px block). */
-      .about-card-stack { height: 420px; overflow: hidden; }
-      .card-back { right: 0; transform: rotate(2deg); }
+      /* About card stack:
+         - height:auto so the card-front (position:relative below) dictates height
+         - card-back hidden — decorative only, wastes vertical space on mobile
+         - card-front switched to position:relative so it contributes to parent height
+           and ALL 6 pillars are fully visible (no clipping) */
+      .about-card-stack { height: auto; overflow: visible; }
+      .card-back { display: none; }
+      .card-front { position: relative; width: 100%; top: auto; left: auto; }
       /* Drop pillars to single column on mobile so text never wraps awkwardly */
       .card-pillars { grid-template-columns: 1fr; }
 
-      /* Approach steps — 2-col still readable on mobile */
-      .approach-steps { grid-template-columns: 1fr 1fr; gap: 28px; }
+      /* Fix specificity: #approach .approach-steps has an ID so plain .approach-steps
+         is ignored. Use the full selector to actually override the 4-column desktop grid. */
+      #approach .approach-steps { grid-template-columns: 1fr 1fr; gap: 20px; }
+      #approach .approach-steps::before { display: none; }
+      /* Reduce step padding so 2-col fits comfortably on narrow screens */
+      .approach-step { padding: 0 12px; }
 
       /* Criteria aside becomes static (not sticky) below fold */
       .criteria-aside { position: static; }
@@ -1334,8 +1341,9 @@
       /* Narrower side padding so cards fill the screen */
       .container { padding: 0 16px; }
 
-      /* Single-column approach on small phones */
-      .approach-steps { grid-template-columns: 1fr; gap: 24px; }
+      /* Single-column approach on small phones — again needs the ID-qualified selector */
+      #approach .approach-steps { grid-template-columns: 1fr; gap: 20px; }
+      .approach-step { padding: 0 8px; }
 
       /* Give cards a bit more breathing room by reducing their own padding */
       .service-card, .focus-card { padding: 26px 18px; }
@@ -1352,7 +1360,7 @@
       .contact-form { padding: 28px 18px; }
 
       /* Step numbers — slightly smaller on tiny screens */
-      .step-number { width: 60px; height: 60px; font-size: 18px; }
+      .step-number { width: 56px; height: 56px; font-size: 17px; }
     }
   </style>
 </head>
