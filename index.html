@@ -10,7 +10,7 @@
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
 
   <style>
     /* =====================================================
@@ -178,6 +178,41 @@
     }
     .nav-links a:hover { color: var(--white); }
     .nav-cta { margin-left: 16px; }
+
+    /* ── Institutional wordmark lockup ── */
+    .logo-lockup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      text-decoration: none;
+    }
+    .logo-ascend {
+      font-family: 'Playfair Display', 'DM Serif Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .logo-rule {
+      width: 100%;
+      height: 1px;
+      background: var(--gold);
+      margin: 5px 0 4px;
+    }
+    .logo-sub {
+      font-family: 'Outfit', sans-serif;
+      font-size: 9.5px;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gray-300);
+      line-height: 1;
+      white-space: nowrap;
+    }
 
     .hamburger {
       display: none;
@@ -1380,15 +1415,11 @@
 <nav id="mainNav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
     <a href="#hero" class="nav-logo" aria-label="Ascend Youth Brands home">
-      <div class="nav-logo-mark">
-        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- Rising trend-line arrow: bottom-left to top-right -->
-          <polyline points="2,15 7,9 11,12 17,5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <!-- Arrowhead -->
-          <polyline points="12.5,4.5 17,4.5 17,9" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        </svg>
+      <div class="logo-lockup">
+        <div class="logo-ascend">Ascend</div>
+        <div class="logo-rule"></div>
+        <div class="logo-sub">Youth&nbsp;Brands</div>
       </div>
-      <div class="nav-wordmark">Ascend Youth Brands</div>
     </a>
     <ul class="nav-links" role="list">
       <li><a href="#about">About</a></li>
@@ -1888,15 +1919,11 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="#hero" class="nav-logo" style="display:inline-flex;" aria-label="Ascend Youth Brands">
-          <div class="nav-logo-mark">
-            <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <!-- Rising trend-line arrow: bottom-left to top-right -->
-              <polyline points="2,15 7,9 11,12 17,5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              <!-- Arrowhead -->
-              <polyline points="12.5,4.5 17,4.5 17,9" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-            </svg>
+          <div class="logo-lockup">
+            <div class="logo-ascend">Ascend</div>
+            <div class="logo-rule"></div>
+            <div class="logo-sub">Youth&nbsp;Brands</div>
           </div>
-          <div class="nav-wordmark">Ascend Youth Brands</div>
         </a>
         <p>Helping youth enrichment businesses scale.</p>
       </div>
