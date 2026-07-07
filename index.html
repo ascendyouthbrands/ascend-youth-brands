@@ -839,7 +839,7 @@
        CONTACT
     ===================================================== */
     #contact {
-      background: var(--navy-mid);
+      background: var(--navy);
     }
     .contact-grid {
       display: grid;
@@ -1226,6 +1226,42 @@
       margin-top: 1px;
     }
 
+    /* LinkedIn link */
+    .linkedin-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 32px;
+      padding: 13px 22px;
+      background: rgba(10,102,194,0.07);
+      border: 1px solid rgba(10,102,194,0.22);
+      border-radius: var(--radius-sm);
+      color: var(--gray-100);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background 0.25s var(--ease-out), border-color 0.25s var(--ease-out), transform 0.25s var(--ease-out), color 0.25s var(--ease-out);
+    }
+    .linkedin-link:hover {
+      background: rgba(10,102,194,0.16);
+      border-color: rgba(10,102,194,0.45);
+      transform: translateY(-2px);
+      color: var(--white);
+    }
+    .linkedin-link .li-icon {
+      width: 20px; height: 20px;
+      background: #0A66C2;
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .linkedin-link .li-icon svg { width: 12px; height: 12px; fill: #fff; }
+    .linkedin-link .li-arrow { opacity: 0.45; margin-left: 2px; transition: opacity 0.2s, transform 0.2s; }
+    .linkedin-link:hover .li-arrow { opacity: 0.85; transform: translate(2px,-2px); }
+    /* URL text — grows to fill, breaks only if it must overflow */
+    .li-url { flex: 1; overflow-wrap: anywhere; }
+
     /* Advisors */
     .advisors-label {
       font-size: 13px;
@@ -1366,6 +1402,11 @@
 
       /* Tighten form card padding */
       .contact-form { padding: 32px 24px; }
+
+      /* Founder / Leadership section */
+      .team-header { margin-bottom: 36px; }
+      /* LinkedIn link: stretch full width so URL never overflows the screen */
+      .linkedin-link { display: flex; width: 100%; box-sizing: border-box; }
     }
 
     /* =====================================================
@@ -1396,6 +1437,9 @@
 
       /* Step numbers — slightly smaller on tiny screens */
       .step-number { width: 56px; height: 56px; font-size: 17px; }
+
+      /* LinkedIn link: tighter padding on very small phones */
+      .linkedin-link { padding: 11px 14px; font-size: 13px; }
     }
   </style>
 </head>
@@ -1834,7 +1878,45 @@
   </div>
 </section>
 
+<!-- FOUNDER / LEADERSHIP -->
+<section id="founder" class="section" aria-label="About the Founder" style="background:var(--navy-mid);">
+  <div class="container">
+    <div class="team-header">
+      <div class="label reveal" style="justify-content:center;">Leadership</div>
+      <h2 class="section-heading reveal reveal-delay-1">Founder &amp; Principal</h2>
+    </div>
+    <div class="founder-bio reveal reveal-delay-1" style="max-width:820px;margin:0 auto;">
+      <h3>Dimitris Papavasileiou</h3>
+      <div class="founder-title">Founder &amp; Principal, Ascend Youth Brands</div>
+      <p>
+        Dimitris is the Founder and Principal of Ascend Youth Brands, where he partners with founders to acquire, operate, and grow exceptional youth enrichment businesses across the United States. His mission is to preserve the culture and legacy of each organization while providing the operational expertise, strategic resources, and long-term capital needed to help businesses thrive for generations.
+      </p>
+      <p>
+        Dimitris brings a unique combination of investing, consulting, and operating experience. He previously advised corporate executives and private equity investors as a consultant at Boston Consulting Group (BCG), where he specialized in business strategy, operational improvement, and mergers &amp; acquisitions across a broad range of industries, including consumer services, healthcare, business services, technology, energy, and transportation.
+      </p>
+      <p>
+        Earlier in his career, Dimitris spent a decade in finance and business development, leading strategic growth initiatives and evaluating investments in the transportation and energy markets.
+      </p>
+      <p>
+        Dimitris holds an MBA from Harvard Business School, a Master of Science in Shipping, Trade, and Finance from Bayes Business School (formerly Cass Business School), and a Bachelor of Science in Computer Information Systems.
+      </p>
+      <a href="https://linkedin.com/in/dpapavasileiou" target="_blank" rel="noopener noreferrer" class="linkedin-link">
+        <span class="li-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </span>
+        <span class="li-url">Connect on LinkedIn</span>
+        <svg class="li-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
+          <path d="M3 13L13 3M7 3h6v6"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
+
 <section id="contact" class="section" aria-label="Contact Ascend Youth Brands">
   <div class="container">
     <div class="contact-grid">
