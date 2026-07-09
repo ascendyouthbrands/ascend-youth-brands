@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ascendyouthbrands.com/sitemap.xml
